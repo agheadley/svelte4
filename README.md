@@ -1,2 +1,2 @@
-# svelte4
+# svelte2
 Created with CodeSandbox
