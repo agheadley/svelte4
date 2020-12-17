@@ -1,11 +1,7 @@
 import * as initial from "./initial";
 
-let status = {
-  version: "version1",
-  dept: "CHE"
-};
-
 let version = {
+  active: "version1",
   version1: {
     name: "v1",
     core: {},
@@ -34,39 +30,32 @@ let version = {
 };
 
 /* gets version from local storage */
-let getVersion = (versionKey) => {
+let getVersion = (versionKey = version.active) => {
   version[versionKey] = JSON.parse(localStorage.getItem(versionKey));
+  return version[versionKey];
 };
 
 /* puts core, data into version storage */
-let putVersion = () => {
-  localStorage.setItem(status.version, JSON.stringify(version[status.version]));
-};
-
-/* exported functions ... */
-
-/* update setings, one at a time */
-let updateCore = (key, value) => {
-  version[status.version].core[key] = value;
-  putVersion();
+let putVersion = (versionKey = version.active) => {
+  localStorage.setItem(versionKey, JSON.stringify(version[versionKey]));
 };
 
 /* add a blank row */
-let addRow = (year) => {
-  let row = JSON.parse(JSON.stringify(version[status.version].core.row));
+let addRow = (year, versionKey = version.active) => {
+  let row = JSON.parse(JSON.stringify(version[version.active].core.row));
   console.log("adding year ", year);
 
-  let newIndex = version[status.version].core.yearList.indexOf(year);
+  let newIndex = version[versionKey].core.yearList.indexOf(year);
 
   let pos = 0;
   let flag = true;
-  for (let item of version[status.version].data) {
+  for (let item of version[version.active].data) {
     //let dataIndex = core.yearList.indexOf(item.y);
-    let dataIndex = version[status.version].core.yearList.indexOf(item.y);
+    let dataIndex = version[version.active].core.yearList.indexOf(item.y);
     console.log(dataIndex, newIndex);
     if (flag) {
       if (dataIndex > newIndex) {
-        pos = version[status.version].data.indexOf(item);
+        pos = version[version.active].data.indexOf(item);
         console.log("adding @", pos);
         flag = false;
       }
@@ -74,88 +63,62 @@ let addRow = (year) => {
   }
   if (flag) {
     console.log("pushing to end");
-    version[status.version].data.push({ y: year, row: row });
+    version[version.active].data.push({ y: year, row: row });
   } else {
-    version[status.version].data.splice(pos, 0, { y: year, row: row });
+    version[version.active].data.splice(pos, 0, { y: year, row: row });
   }
 
   putVersion();
 };
 
-let deleteRow = (index) => {
-  version[status.version].data.splice(index, 1);
+let deleteRow = (index, versionKey = version.active) => {
+  version[version.active].data.splice(index, 1);
   putVersion();
 };
 
 /* rowObj {i:data.length,y:year,row:row[]} */
-let putRow = (row, rowObj) => {
-  version[status.version].data[row] = rowObj;
+let putRow = (row, rowObj, versionKey = version.active) => {
+  version[version.active].data[row] = rowObj;
   putVersion();
 };
 
-let putName = (versionKey, nameVal) => {
-  version[versionKey].name = nameVal;
-};
-
-/* changes active version, brings core / data from local storage */
-let updateVersion = (versionKey) => {
-  status.version = versionKey;
-  status.versionName = version[versionKey].name;
-  localStorage.setItem("active", status.version);
-  getVersion(versionKey);
-};
-
-/* look for previous version stored, and load, otherwise, load 1st version */
-let initVersion = () => {
-  for (let key of Object.keys(version)) {
-    if (localStorage.getItem(key) === null) {
-      version[key].data = [];
-      version[key].core = JSON.parse(JSON.stringify(initial.core));
-      localStorage.setItem(key, JSON.stringify(version[key]));
-    }
+let initVersion = (versionKey = version.active) => {
+  if (localStorage.getItem(versionKey) === null) {
+    version[versionKey].data = [];
+    version[versionKey].core = JSON.parse(JSON.stringify(initial.core));
+    putVersion(versionKey);
   }
-
-  if (localStorage.getItem("active") === null) {
-    let keys = Object.keys(version);
-    localStorage.setItem("active", keys[0]);
-    status.version = "version1";
-  } else {
-    status.version = localStorage.getItem("active");
-  }
-  updateVersion(status.version);
 };
 
-let getData = () => {
-  return version[status.version].data;
-};
-
-let getCore = () => {
-  return version[status.version].core;
-};
-
-let getStatus = () => {
-  return status;
-};
-
-let getVersionObj = () => {
-  return version;
-};
-
-let deleteData = (versionKey) => {
+let deleteData = (versionKey = version.active) => {
   version[versionKey].data = [];
 };
 
+let getVersionKeys = () => {
+  let keys = Object.keys(version);
+  keys = keys.filter((el) => el !== "active");
+  return keys;
+};
+
+let isActive = () => {
+  if (localStorage.getItem("active") === null) return false;
+  else return true;
+};
+
+let setActive = (versionKey) => {
+  version.active = versionKey;
+  localStorage.setItem("active", version.active);
+};
+
 export {
-  getCore,
-  getData,
-  getStatus,
-  updateCore,
+  getVersion,
+  putVersion,
   addRow,
   deleteRow,
   putRow,
   initVersion,
-  updateVersion,
-  getVersionObj,
   deleteData,
-  putName
+  getVersionKeys,
+  isActive,
+  setActive
 };

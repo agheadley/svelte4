@@ -3,9 +3,7 @@
 	import * as check from "./../scripts/check";
 
 	import { rowIndex } from "./../scripts/store.js";
-
-	let data = state.getData();
-	let core = state.getCore();
+	let version = state.getVersion();
 
 	let index;
 
@@ -18,7 +16,7 @@
 	  console.log("deleting row", index);
 	  state.deleteRow(index);
 
-	  for (let col = 0; col < core.row.length; col++) {
+	  for (let col = 0; col < version.core.row.length; col++) {
 	    check.updateErrors(col);
 	  }
 

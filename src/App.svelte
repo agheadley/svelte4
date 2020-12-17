@@ -9,7 +9,10 @@
 
 	import * as state from "./scripts/state";
 
-	state.initVersion();
+	let versions = state.getVersionKeys();
+	console.log(versions);
+	for (let version of versions) state.initVersion(version);
+	if (!state.isActive()) state.setActive(versions[0]);
 
 	/* menu tabs */
 	const menuTabOptions = [

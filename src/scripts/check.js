@@ -1,7 +1,7 @@
 import * as state from "./state";
 
 let updateErrors = (col) => {
-  let data = state.getData();
+  let data = state.getVersion().data;
 
   /* replace all errors for column */
   for (let row of data) {
@@ -67,7 +67,7 @@ let checkStaff = (val) => {
 
   if (val === "") return false;
 
-  let core = state.getCore();
+  let core = state.getVersion().core;
   for (let item of core.staffList) item = item.replace(" ", "").toUpperCase();
 
   if (core.staffList.indexOf(val) === -1) return true;
@@ -79,7 +79,7 @@ let checkRoom = (val) => {
 
   if (val === "") return false;
 
-  let core = state.getCore();
+  let core = state.getVersion().core;
   for (let item of core.roomList) item = item.replace(" ", "");
 
   if (core.roomList.indexOf(val) === -1) return true;
@@ -92,7 +92,7 @@ let checkClass = (val) => {
   val = val.replace(" ", "").split("/");
   if (val.length !== 2 || val[0].length < 1 || val[1].length < 1) return true;
 
-  let core = state.getCore();
+  let core = state.getVersion().core;
 
   //console.log("check.checkClass():");
   //console.log(core.subjectList);

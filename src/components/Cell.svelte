@@ -5,7 +5,7 @@
   import * as state from "./../scripts/state";
   import * as check from "./../scripts/check";
 
-  let data = state.getData();
+  let data = state.getVersion().data;
 
   let value = {
     class: data[row].row[col].c,

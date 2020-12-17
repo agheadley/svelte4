@@ -14,17 +14,18 @@
 
   console.log("rowIndex", rowIndex);
 
+  /* refresh after row delete */
   $: $rowIndex && refreshData();
 
   let refreshData = () => {
     console.log("rowIndexState", rowIndexState);
-    if (rowIndexState === -1) data = state.getData();
+    if (rowIndexState === -1) data = state.getVersion().data;
   };
 
-  let core = state.getCore();
-  console.log(core);
-  let status = state.getStatus();
-  let data = state.getData();
+  let versionName = state.getVersion().name;
+
+  let data = state.getVersion().data;
+  let core = state.getVersion().core;
 
   let yearFlag = false;
   let blockFlag = false;
@@ -51,7 +52,7 @@
 
   let addRow = () => {
     state.addRow(yearSelected);
-    data = state.getData();
+    data = state.getVersion().data;
   };
 
   let deleteRow = index => {
@@ -100,7 +101,7 @@
     {/each}
     </select>
     </div>
-    <div class="col-4 text-center align-self-center">{status.versionName}</div>
+    <div class="col-4 text-center align-self-center">{versionName}</div>
     
     <div class="col-4 text-right">
     {#if !yearFlag}<button on:click={()=>yearFlag=!yearFlag} class="btn" type="button"><i class="fas fa-align-justify"></i></button>{/if}
