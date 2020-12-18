@@ -5,6 +5,10 @@
   import * as state from "./../scripts/state";
   import * as check from "./../scripts/check";
 
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
   let data = state.getVersion().data;
 
   let value = {
@@ -23,6 +27,9 @@
       data[row].row[col].c = value.class.replace(" ", "");
       data[row].row[col].s = value.staff.replace(" ", "").toUpperCase();
       data[row].row[col].r = value.room.replace(" ", "");
+
+      console.log(data[row].row[col]);
+
       state.putRow(row, data[row]);
 
       check.updateErrors(col);
@@ -30,6 +37,8 @@
       //console.log(data);
       row = -1;
       col = -1;
+
+      dispatch("refresh");
     }
   };
 

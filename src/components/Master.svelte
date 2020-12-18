@@ -14,12 +14,16 @@
 
   console.log("rowIndex", rowIndex);
 
-  /* refresh after row delete */
-  $: $rowIndex && refreshData();
-
   let refreshData = () => {
+    data = state.getVersion().data;
+  };
+
+  /* refresh after row delete */
+  $: $rowIndex && deleteRowReturn();
+
+  let deleteRowReturn = () => {
     console.log("rowIndexState", rowIndexState);
-    if (rowIndexState === -1) data = state.getVersion().data;
+    if (rowIndexState === -1) refreshData();
   };
 
   let versionName = state.getVersion().name;
@@ -210,7 +214,7 @@
 
 
       {#if editRow===row && editCol===col}
-      <Cell bind:row={editRow} bind:col={editCol}/>
+      <Cell bind:row={editRow} bind:col={editCol} on:refresh={refreshData}/>
       {/if}
 
 
@@ -245,7 +249,7 @@
 
 
       {#if editRow===row && editCol===col}
-      <Cell bind:row={editRow} bind:col={editCol}/>
+      <Cell bind:row={editRow} bind:col={editCol} on:refresh={refreshData}/>
       {/if}
 
 
