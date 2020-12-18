@@ -35,13 +35,6 @@
     });
   };
 
-  /* versions */
-  let version = state.getVersionObj();
-  let versionKeys = Object.keys(version);
-  let versionText = "Select an action to change a version";
-
-  let disabled = "disabled";
-
   /* to be removed */
 
   let deleteAll = () => {

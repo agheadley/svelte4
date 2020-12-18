@@ -100,9 +100,9 @@ let getVersionKeys = () => {
   return keys;
 };
 
-let isActive = () => {
+let getActive = () => {
   if (localStorage.getItem("active") === null) return false;
-  else return true;
+  else return version.active;
 };
 
 let setActive = (versionKey) => {
@@ -119,6 +119,6 @@ export {
   initVersion,
   deleteData,
   getVersionKeys,
-  isActive,
+  getActive,
   setActive
 };
