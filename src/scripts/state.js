@@ -36,8 +36,13 @@ let getVersion = (versionKey = version.active) => {
 };
 
 /* puts core, data into version storage */
-let putVersion = (versionKey = version.active) => {
-  localStorage.setItem(versionKey, JSON.stringify(version[versionKey]));
+let putVersion = (versionKey = version.active, versionValue = false) => {
+  if (!versionValue) {
+    localStorage.setItem(versionKey, JSON.stringify(version[versionKey]));
+  } else {
+    localStorage.setItem(versionKey, JSON.stringify(versionValue));
+    version.versionKey = versionValue;
+  }
 };
 
 /* add a blank row */
@@ -92,6 +97,7 @@ let initVersion = (versionKey = version.active) => {
 
 let deleteData = (versionKey = version.active) => {
   version[versionKey].data = [];
+  putVersion(versionKey);
 };
 
 let getVersionKeys = () => {

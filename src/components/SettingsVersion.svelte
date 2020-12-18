@@ -12,8 +12,6 @@
   let activeIndex = versions.indexOf(active);
   versions = versions.map(el => ({ key: el, name: state.getVersion(el).name }));
 
-  let disabled = "disabled";
-
   let selectVersion = index => {
     state.setActive(versions[index].key);
     active = state.getActive();
@@ -38,7 +36,35 @@
     }
   };
 
-  let copyVersion = index => {};
+  let disabled = "disabled";
+  let copyVersionKey = "";
+  let copyVersion = index => {
+    copyVersionKey = versions[index].key;
+    disabled = "";
+  };
+
+  let pasteVersion = index => {
+    let copy = state.getVersion(copyVersionKey);
+    let pasteVersionKey = versions[index].key;
+    state.putVersion(pasteVersionKey, copy);
+    disabled = "disabled";
+    copyVersionKey = "";
+    versions[index].name = copy.name;
+  };
+
+  let clearIndex = -1;
+  let clearData = index => {
+    error = "delete";
+    clearIndex = index;
+  };
+
+  let confirmClear = () => {
+    if (clearIndex !== -1) {
+      state.deleteData(versions[clearIndex].key);
+    }
+    error = "";
+    clearIndex = -1;
+  };
 </script>
 
 
@@ -54,6 +80,15 @@
 <p>Invalid version name. Letters/Numbers/- only please.</p>       
 </div>
 {/if}
+{#if error==="delete"}
+<div class="alert alert-danger" role="alert">
+<p>Do you really want to clear data? (Can't be undone.)</p>       
+<button on:click={confirmClear} class="btn btn-danger">Clear</button>
+
+<button on:click={()=>error=""} class="btn">Cancel</button>
+</div>
+{/if}
+
   
   {#each versions as item,i}
   <div class="row p-5">
@@ -95,19 +130,18 @@
 					<span class="sr-only">Upload</span>
 	</button>			
   
-  <button onclick="" class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>copyVersion(i)} class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-clone" aria-hidden="true"></i>
 					<span class="sr-only">Copy</span>
 	</button>
 
-  <button onclick="" disabled={disabled} class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>pasteVersion(i)} disabled={disabled} class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-paste" aria-hidden="true"></i>
 					<span class="sr-only">Paste</span>
 	</button>			
   			
-  <button onclick="" class="btn btn-square rounded-circle" type="button">
-					<i class="fas fa-trash-restore" aria-hidden="true"></i>
-					<span class="sr-only">Reset</span>
+  <button on:click={()=>clearData(i)} class="btn btn-danger" type="button">
+  CLEAR
 	</button>
 
   

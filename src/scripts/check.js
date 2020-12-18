@@ -14,7 +14,9 @@ let updateErrors = (col) => {
     console.log(row.y, row.row[col].s, row.row[col].r, row.row[col].e);
 
     let staffCheck = data
-      .map((el, i) => (el.row[col].s === row.row[col].s ? i : -1))
+      .map((el, i) =>
+        el.row[col].s === row.row[col].s && el.row[col].s !== "" ? i : -1
+      )
       .filter((index) => index !== -1);
 
     console.log(row.row[col].s, staffCheck);
@@ -33,7 +35,9 @@ let updateErrors = (col) => {
     console.log(row.y, row.row[col].s, row.row[col].r, row.row[col].e);
 
     let roomCheck = data
-      .map((el, i) => (el.row[col].r === row.row[col].r ? i : -1))
+      .map((el, i) =>
+        el.row[col].r === row.row[col].r && el.row[col].r !== "" ? i : -1
+      )
       .filter((index) => index !== -1);
 
     console.log(row.row[col].r, roomCheck);
