@@ -96,6 +96,9 @@ let checkClass = (val) => {
   val = val.replace(" ", "").split("/");
   if (val.length !== 2 || val[0].length < 1 || val[1].length < 1) return true;
 
+  let pattern = /^[a-z0-9]+$/i;
+  if (!pattern.test(val[1])) return true;
+
   let core = state.getVersion().core;
 
   //console.log("check.checkClass():");
