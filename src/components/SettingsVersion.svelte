@@ -65,6 +65,17 @@
     error = "";
     clearIndex = -1;
   };
+
+  let downloadVersion = index => {
+    let content = JSON.stringify(state.getVersion(versions[index].key));
+    file.download(content, "version_" + versions[index].name + ".ttv");
+  };
+
+  let uploadIndex = -1;
+  let uploadVersion = index => {
+    error = "upload";
+    uploadIndex = 1;
+  };
 </script>
 
 
@@ -89,6 +100,13 @@
 </div>
 {/if}
 
+{#if error==="upload"}
+<div class="alert alert-secondary" role="alert">
+<p>Upload version file .ttv</p>
+<!--<p><input type="file" bind:files id="file-input-1" accept=".csv" on:change={e => loadPeriod() }></p>
+-->
+</div>
+{/if}
   
   {#each versions as item,i}
   <div class="row p-5">
@@ -120,12 +138,12 @@
   <div class="col-auto align-self-center">
   
   
-  <button onclick="" class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>downloadVersion(i)} class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-download" aria-hidden="true"></i>
 					<span class="sr-only">Download</span>
 	</button>			
   
-  <button onclick="" class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>uploadVersion(i)} class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-upload" aria-hidden="true"></i>
 					<span class="sr-only">Upload</span>
 	</button>			
