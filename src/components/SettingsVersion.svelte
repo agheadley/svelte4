@@ -4,13 +4,17 @@
   import * as state from "./../scripts/state";
 
   /* versions */
-  let versions = state.getVersionKeys();
+  let versionKeys = state.getVersionKeys();
 
   if (!state.getActive()) state.setActive(versions[0]);
 
   let active = state.getActive();
-  let activeIndex = versions.indexOf(active);
-  versions = versions.map(el => ({ key: el, name: state.getVersion(el).name }));
+  let activeIndex = versionKeys.indexOf(active);
+  console.log(versionKeys);
+  let versions = versionKeys.map(el => ({
+    key: el,
+    name: state.getVersion(el).name
+  }));
 
   let selectVersion = index => {
     state.setActive(versions[index].key);
@@ -66,15 +70,43 @@
     clearIndex = -1;
   };
 
+  let resetIndex = -1;
+  let resetVersion = index => {
+    resetIndex = index;
+    error = "reset";
+  };
+
+  let confirmReset = () => {
+    if (resetIndex !== -1) {
+      state.removeStorage(versions[resetIndex].key);
+      state.initVersion(versions[resetIndex].key);
+      error = "";
+      versions[resetIndex].name = "v" + (resetIndex + 1);
+      resetIndex = -1;
+    }
+  };
+
   let downloadVersion = index => {
     let content = JSON.stringify(state.getVersion(versions[index].key));
     file.download(content, "version_" + versions[index].name + ".ttv");
   };
 
+  let files = null;
   let uploadIndex = -1;
   let uploadVersion = index => {
     error = "upload";
-    uploadIndex = 1;
+    uploadIndex = index;
+  };
+
+  let uploadVersionFile = () => {
+    file.read(files[0], res => {
+      console.log(res);
+      let version = JSON.parse(res);
+      state.putVersion(versions[uploadIndex].key, version);
+      versions[uploadIndex].name = version.name;
+      uploadIndex = -1;
+      error = "";
+    });
   };
 </script>
 
@@ -94,7 +126,16 @@
 {#if error==="delete"}
 <div class="alert alert-danger" role="alert">
 <p>Do you really want to clear data? (Can't be undone.)</p>       
-<button on:click={confirmClear} class="btn btn-danger">Clear</button>
+<button on:click={confirmClear} class="btn btn-danger">CLear</button>
+
+<button on:click={()=>error=""} class="btn">Cancel</button>
+</div>
+{/if}
+
+{#if error==="reset"}
+<div class="alert alert-danger" role="alert">
+<p>Do you really want to clear data and settings? (Can't be undone.)</p>       
+<button on:click={confirmReset} class="btn btn-danger">Clear</button>
 
 <button on:click={()=>error=""} class="btn">Cancel</button>
 </div>
@@ -102,9 +143,12 @@
 
 {#if error==="upload"}
 <div class="alert alert-secondary" role="alert">
-<p>Upload version file .ttv</p>
-<!--<p><input type="file" bind:files id="file-input-1" accept=".csv" on:change={e => loadPeriod() }></p>
--->
+<p>Upload a .ttv file</p>
+<div class="custom-file">
+
+<label for="file-input-1">Choose file</label>
+<input type="file" bind:files id="file-input-1" accept=".ttv" on:change={e => uploadVersionFile() }/>
+</div>
 </div>
 {/if}
   
@@ -128,7 +172,7 @@
   </div>
   
   <div class="col-1 align-self-center">
-  <button on:click={()=>storeName(i)} class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>storeName(i)}  class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-save" aria-hidden="true"></i>
 					<span class="sr-only">Save</span>
 	</button>			
@@ -138,7 +182,7 @@
   <div class="col-auto align-self-center">
   
   
-  <button on:click={()=>downloadVersion(i)} class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>downloadVersion(i)}  class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-download" aria-hidden="true"></i>
 					<span class="sr-only">Download</span>
 	</button>			
@@ -153,16 +197,22 @@
 					<span class="sr-only">Copy</span>
 	</button>
 
-  <button on:click={()=>pasteVersion(i)} disabled={disabled} class="btn btn-square rounded-circle" type="button">
+  <button on:click={()=>pasteVersion(i)}  disabled={disabled} class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-paste" aria-hidden="true"></i>
 					<span class="sr-only">Paste</span>
 	</button>			
-  			
-  <button on:click={()=>clearData(i)} class="btn btn-danger" type="button">
-  CLEAR
-	</button>
 
-  
+  <button on:click={()=>clearData(i)}  class="btn btn-square btn-danger rounded-circle" type="button">
+					<i class="fas fa-undo" aria-hidden="true"></i>
+					<span class="sr-only">Paste</span>
+	</button>			
+
+<button on:click={()=>resetVersion(i)}  class="btn btn-square btn-danger rounded-circle" type="button">
+					<i class="fas fa-times" aria-hidden="true"></i>
+					<span class="sr-only">Paste</span>
+	</button>			
+
+
   
   </div>
   
@@ -175,6 +225,7 @@
 <style>
   .version {
     cursor: pointer;
+    color: #1890ff;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }

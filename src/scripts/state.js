@@ -41,7 +41,7 @@ let putVersion = (versionKey = version.active, versionValue = false) => {
     localStorage.setItem(versionKey, JSON.stringify(version[versionKey]));
   } else {
     localStorage.setItem(versionKey, JSON.stringify(versionValue));
-    version.versionKey = versionValue;
+    version[versionKey] = versionValue;
   }
 };
 
@@ -87,12 +87,8 @@ let putRow = (row, rowObj, versionKey = version.active) => {
   putVersion();
 };
 
-let initVersion = (versionKey = version.active) => {
-  if (localStorage.getItem(versionKey) === null) {
-    version[versionKey].data = [];
-    version[versionKey].core = JSON.parse(JSON.stringify(initial.core));
-    putVersion(versionKey);
-  }
+let removeStorage = (storageKey) => {
+  localStorage.removeItem(storageKey);
 };
 
 let deleteData = (versionKey = version.active) => {
@@ -116,6 +112,16 @@ let setActive = (versionKey) => {
   localStorage.setItem("active", version.active);
 };
 
+let initVersion = (versionKey = version.active) => {
+  if (localStorage.getItem(versionKey) === null) {
+    let index = getVersionKeys().indexOf(versionKey);
+    version[versionKey].name = "v" + (index + 1);
+    version[versionKey].data = [];
+    version[versionKey].core = JSON.parse(JSON.stringify(initial.core));
+    putVersion(versionKey);
+  }
+};
+
 export {
   getVersion,
   putVersion,
@@ -126,5 +132,6 @@ export {
   deleteData,
   getVersionKeys,
   getActive,
-  setActive
+  setActive,
+  removeStorage
 };
