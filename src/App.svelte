@@ -5,7 +5,7 @@
 	import Settings from "./components/Settings.svelte";
 
 	import About from "./components/About.svelte";
-	import DeleteRow from "./components/DeleteRow.svelte";
+	//import DeleteRow from "./components/DeleteRow.svelte";
 
 	import * as state from "./scripts/state";
 
@@ -35,7 +35,7 @@
 <main>
 
 <!--<About/>-->
-<DeleteRow/>
+<!--<DeleteRow/>-->
 
 	<div class="page-wrapper with-navbar with-navbar-fixed-bottom">
 

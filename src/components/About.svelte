@@ -1,10 +1,9 @@
 <script>
+/*
 import { createEventDispatcher } from "svelte";
-
 const dispatch = createEventDispatcher();
-
+*/
 export let closeFlag;
-//dispatch("refresh");
 </script>
 
 <div  class="position-relative">
@@ -17,10 +16,11 @@ export let closeFlag;
 		<li>https://svelte.dev/</li>
 		<li>https://www.gethalfmoon.com/docs/introduction/</li>
 		</ul>
-		<p>agh/MMXX</p>
-
-     <button on:click={()=>closeFlag=false}>Close</button>
+		<p>AGH/mmxx</p>
+		<div class="text-center">
+     <button class="btn"  on:click={()=>closeFlag=false}>Close</button>
     </div>
+		</div>
 		</div>
 		<!--</div>-->
 </div>
