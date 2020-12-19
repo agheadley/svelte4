@@ -1,25 +1,37 @@
 <script>
+import { createEventDispatcher } from "svelte";
+
+const dispatch = createEventDispatcher();
+
+export let closeFlag;
+//dispatch("refresh");
 </script>
 
-<div class="modal" id="modal-about" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-		<a  href="#" class="close" role="button" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </a>
-			
-<h5 class="modal-title">ilexTT</h5>
-      <p>https://svelte.dev/</p>
-      <p>https://www.gethalfmoon.com/docs/introduction/</p>
-      <p>AGH, MMXX</p>
-      <div class="text-right mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
-        <a href="#" class="btn mr-5" role="button">Close</a>
-       
-      </div>
+<div  class="position-relative">
+		<div class="dialog-container position-absolute z-50">
+		<div  class="card">
+    <h2 class="card-title">ilexTT</h2>
+		<p>A simple timetable pwa.</p>
+		<ul>
+		<li>https://github.com/agheadley/svelte3</li>
+		<li>https://svelte.dev/</li>
+		<li>https://www.gethalfmoon.com/docs/introduction/</li>
+		</ul>
+		<p>agh/MMXX</p>
 
-
-
-      </div>
-
-	</div>
+     <button on:click={()=>closeFlag=false}>Close</button>
+    </div>
+		</div>
+		<!--</div>-->
 </div>
+
+<style>
+	.dialog-container {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  min-height: 100vh;
+	  min-width: 100vw;
+	  background-color: rgba(0, 0, 0, 0.8);
+	}
+</style>
