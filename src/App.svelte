@@ -23,6 +23,8 @@
 	];
 
 	let menuTabSelected = 0;
+
+	let fswFlag = false;
 </script>
 
 
@@ -82,11 +84,32 @@
 		<svelte:component this={menuTabOptions[menuTabSelected].component} />
 
 
+		{#if fswFlag}
+		<div  class="position-relative">
+		<!--	<div style="min-width:100vw;min-height:100vh;height:100vh;background-color:rgba(192,192,192,0.9);" class="z-50 position-absolute">-->
+    <div   style="display:flex;justify-content:center;align-items:center;min-height:100vh;min-width:100vw;background-color:rgba(0,0,0,0.8);" class="position-absolute z-50">
+		<div  class="card">
+    <h2 class="card-title">ilexTT</h2>
+		<p>A simple timetable pwa.</p>
+		<ul>
+		<li>https://github.com/agheadley/svelte3</li>
+		<li>https://svelte.dev/</li>
+		<li>https://www.gethalfmoon.com/docs/introduction/</li>
+		</ul>
+		<p>agh/MMXX</p>
+
+     <button on:click={()=>fswFlag=false}>close</button>
+    </div>
+		</div>
+		<!--</div>-->
+	  </div>
+		{/if}
+
 		<nav class="navbar navbar-fixed-bottom no-print justify-content-between">
 			<div class="navbar-content ml-auto">
 			</div>
 			<div class="navbar-content ml-auto">
-			AGH
+			AGH <button on:click={()=>fswFlag=true}>fsw</button>
 			</div>
 
 		</nav>
