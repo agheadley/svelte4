@@ -39,9 +39,14 @@
 
 {#if periodFlag===0}
 <div class="alert alert-secondary" role="alert">
-  <h4 class="alert-heading">Upload Data to ACTIVE VERSION</h4>
-  <p>Valid period list data required</p>
-  <p>WARNING - Timetable data will be deleted.</p>
+  <ul>
+  <li>Upload period structure to current timetable version</li>
+  <li>Valid period list data required</li>
+  <li>WARNING - all lesson data will be deleted</li>
+  
+  
+  </ul>
+  
   <div class="custom-file">
     <input type="file" bind:files id="file-input-1" accept=".csv" on:change={e => loadPeriod() }>
     <label for="file-input-1">Upload .csv file</label>

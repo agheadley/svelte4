@@ -172,10 +172,7 @@
   </div>
   
   <div class="col-1 align-self-center">
-  <button on:click={()=>storeName(i)}  class="btn btn-square rounded-circle" type="button">
-					<i class="fas fa-save" aria-hidden="true"></i>
-					<span class="sr-only">Save</span>
-	</button>			
+  <button on:click={()=>storeName(i)}  class="btn btn-success" type="button">SAVE</button>			
   </div>
    <div class="col-1">
   </div>
