@@ -3,6 +3,7 @@
 
   import SettingsVersion from "./SettingsVersion.svelte";
   import SettingsPeriod from "./SettingsPeriod.svelte";
+  import SettingsYear from "./SettingsYear.svelte";
 </script>
 
 <div class="content-wrapper">
@@ -31,7 +32,7 @@
 
 <div class="card"> 
   <h2 class="card-title">Year List</h2>
-
+  <SettingsYear/>
 </div>
 
 

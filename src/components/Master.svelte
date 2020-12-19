@@ -5,34 +5,34 @@
   import * as state from "./../scripts/state";
 
   /*
-      // old - from srote.js and DeleteRow model
-      // store.js, DeleteRow.svelte
-      import { rowIndex } from "./../scripts/store";
+        // old - from srote.js and DeleteRow model
+        // store.js, DeleteRow.svelte
+        import { rowIndex } from "./../scripts/store";
 
 
-      // rowIndex for row deletion
-      // old - from srote.js and DeleteRow model
-      let rowIndexState = 0;
-      const unsubscribe = rowIndex.subscribe(value => {
-        rowIndexState = value;
-      });
+        // rowIndex for row deletion
+        // old - from srote.js and DeleteRow model
+        let rowIndexState = 0;
+        const unsubscribe = rowIndex.subscribe(value => {
+          rowIndexState = value;
+        });
     
 
-    console.log("rowIndex", rowIndex);
-      */
+      console.log("rowIndex", rowIndex);
+        */
   let refreshData = () => {
     data = state.getVersion().data;
   };
 
   /*
-      // old - from srote.js and DeleteRow model
-      $: $rowIndex && deleteRowReturn();
+        // old - from srote.js and DeleteRow model
+        $: $rowIndex && deleteRowReturn();
 
-      let deleteRowReturn = () => {
-        console.log("rowIndexState", rowIndexState);
-        if (rowIndexState === -1) refreshData();
-      };
-      */
+        let deleteRowReturn = () => {
+          console.log("rowIndexState", rowIndexState);
+          if (rowIndexState === -1) refreshData();
+        };
+        */
 
   let deleteFlag = -1;
   let deleteRow = index => {
@@ -73,12 +73,12 @@
   };
 
   /*        // old - from srote.js and DeleteRow model
-                let deleteRow = index => {
-                  console.log("deleting row:", index);
-                  rowIndex.set(index);
-                  halfmoon.toggleModal("modal-delete-row");
-                };
-                */
+                  let deleteRow = index => {
+                    console.log("deleting row:", index);
+                    rowIndex.set(index);
+                    halfmoon.toggleModal("modal-delete-row");
+                  };
+                  */
 
   let yearSelected = core.yearList[0];
   let weekSelected = core.weekList[0];
@@ -304,7 +304,7 @@
 
 
 {#if deleteFlag>-1}
-<Row bind:closeFlag={deleteFlag} on:refresh={refreshData}/>
+<Row bind:deleteRowFlag={deleteFlag} on:refresh={refreshData}/>
 {/if}
 
 

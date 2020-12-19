@@ -5,18 +5,18 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  export let closeFlag;
+  export let deleteRowFlag;
 
   function deleteRow() {
-    console.log("deleting row", closeFlag);
-    state.deleteRow(closeFlag);
+    console.log("deleting row", deleteRowFlag);
+    state.deleteRow(deleteRowFlag);
 
     let version = state.getVersion();
     for (let col = 0; col < version.core.row.length; col++) {
       check.updateErrors(col);
     }
     dispatch("refresh");
-    closeFlag = -1;
+    deleteRowFlag = -1;
   }
 </script>
 
@@ -28,7 +28,7 @@
 		<div class="text-center">
      <button class="btn btn-danger" on:click={deleteRow}>Delete</button>
     
-     <button class="btn" on:click={()=>closeFlag=-1}>Close</button>
+     <button class="btn" on:click={()=>deleteRowFlag=-1}>Close</button>
     </div>
 		</div>
 		</div>
