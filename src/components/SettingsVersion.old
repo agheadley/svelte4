@@ -151,55 +151,35 @@
 </div>
 </div>
 {/if}
-
-
-<div class="row p-5">
-<div class="col-2 p-5  align-self-center">
-<p class="title">Version</p>
-</div>
-<div class="col-3 p-5 align-self-center">
-<p class="title-2">Name</p>
-</div>
-<div class="col-7 p-5  align-self-center">
-<p>Actions</p>
-</div>
-</div>
-
-
-{#each versions as item,i}
-<div class="row p-5">
-<div class="col-2 p-5  align-self-center">
-
-<p>
-{#if item.key===active}
-  <div on:click={()=>selectVersion(i)} class="version active align-self-center">{item.key}</div>
+  
+  {#each versions as item,i}
+  <div class="row p-5">
+  {#if item.key===active}
+  <div on:click={()=>selectVersion(i)} class="version active col-2 align-self-center">{item.key}</div>
   {/if}
   {#if item.key!==active}
-  <div on:click={()=>selectVersion(i)} class="version align-self-center">{item.key}</div>
+  <div on:click={()=>selectVersion(i)} class="version col-2 align-self-center">{item.key}</div>
   {/if}
-  
-</p>
-</div>
-<div class="col-3 p-5 align-self-center">
-<p class="">
+  <div class="col-2 p-5">
 
-{#if !nameFlag[i]}
-  <input class="" placeholder="letters/numbers only" bind:value={item.name}/>
+  {#if !nameFlag[i]}
+  <input class="form-control" placeholder="letters/numbers only" bind:value={item.name}/>
   {/if}
   {#if nameFlag[i]}
-  <input class="input-error" placeholder="letters/numbers only" bind:value={item.name}/>
+  <input class="form-control input-error" placeholder="letters/numbers only" bind:value={item.name}/>
   {/if}
   
-&nbsp;
-<button on:click={()=>storeName(i)}  class="btn btn-success" type="button">SAVE</button>			
+  </div>
   
-
-</p>
-</div>
-<div class="col-7 p-5  align-self-center">
-<p>
-
-<button on:click={()=>downloadVersion(i)}  class="btn btn-square rounded-circle" type="button">
+  <div class="col-1 align-self-center">
+  <button on:click={()=>storeName(i)}  class="btn btn-success" type="button">SAVE</button>			
+  </div>
+   <div class="col-1">
+  </div>
+  <div class="col-auto align-self-center">
+  
+  
+  <button on:click={()=>downloadVersion(i)}  class="btn btn-square rounded-circle" type="button">
 					<i class="fas fa-download" aria-hidden="true"></i>
 					<span class="sr-only">Download</span>
 	</button>			
@@ -231,16 +211,10 @@
 
 
   
-
-
-
-</p>
-</div>
-</div>
-{/each}
-
-
-
+  </div>
+  
+  </div>
+  {/each}
 
 
 
@@ -251,10 +225,6 @@
     color: #1890ff;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    width: 10rem;
-    min-width: 10rem;
-    max-width: 10rem;
-    overflow: hidden;
   }
 
   .active {
@@ -267,24 +237,8 @@
     border: 2px solid #ff4d4f;
   }
 
-  .title {
-    border: 0px solid black;
-    width: 10rem;
-    min-width: 10rem;
-    max-width: 10rem;
-    overflow: hidden;
-  }
-
-  .title-2 {
-    border: 0px solid black;
-    width: 15rem;
-    min-width: 15rem;
-    max-width: 15rem;
-    overflow: hidden;
-  }
-
   input {
-    border: 1px solid #e1e1e1;
+    border: 2px solid #e1e1e1;
     border-radius: 5px;
     width: 10rem;
   }

@@ -53,51 +53,97 @@
 </ul>       
 </div>
 
+
+<div class="row p-5">
+<div class="col-3 p-5  align-self-center">
+<p class="title">Year</p>
+</div>
+<div class="col-3 p-5 align-self-center">
+<p class="title"></p>
+</div>
+<div class="col-3 p-5  align-self-center">
+<p class="title"></p>
+</div>
+<div class="col-3 p-5  align-self-center">
+<p class="title"></p>
+</div>
+</div>
+
 {#each yearList as year,index}
 <div class="row p-5">
-<div class="col-2 p-5 text-right align-self-center">
-Year
-</div>
-<div class="col-1 p-5">
-</div>
-<div class="col-2 align-self-center ">
+<div class="col-3 p-5  align-self-center">
+
 {#if !yearFlag[index]}
 <input type="text" placeholder="year text"  bind:value={year}/>
 {/if}
 {#if yearFlag[index]}
-<input class="xxx" type="text" placeholder="year text"  bind:value={year}/>
+<input class="input-error" type="text" placeholder="year text"  bind:value={year}/>
 {/if}
+
+
 </div>
-<div class="col-1 p-5">
+<div class="col-3 p-5 align-self-center">
+<p class="title"></p>
 </div>
-<div class="col-auto p-5 align-self-center">
+<div class="col-3 p-5  align-self-center">
+<p class="title">
+
+
 <button class="btn btn-square btn-danger rounded-circle" on:click={()=>deleteRow(index)} type="button">
  <i class="fas fa-times"></i>
  </button>
+
+
+</p>
+</div>
+<div class="col-3 p-5  align-self-center">
+<p class="title"></p>
 </div>
 </div>
+
 {/each}
 
+
+
 <div class="row p-5">
-<div class="col-2 p-5 text-right align-self-center">
+<div class="col-3 p-5  align-self-center">
+<p class="title">
 <button on:click={addRow} class="btn btn-square btn-success rounded-circle" role="button">&plus;</button>
+
+</p>
 </div>
-<div class="col-3 p-5">
-&nbsp;
+<div class="col-3 p-5 align-self-center">
+<p class="title"></p>
 </div>
-<div class="col-auto p-5 align-self-center">
+<div class="col-3 p-5  align-self-center">
+<p class="title">
 <button class="btn btn-success" on:click={storeYears} type="button">SAVE</button>
+
+</p>
+</div>
+<div class="col-3 p-5  align-self-center">
+<p class="title"></p>
 </div>
 </div>
+
+
 
 
 <style>
-  .xxx {
+  .input-error {
     border: 2px solid #ff4d4f;
   }
 
+  .title {
+    border: 0px solid black;
+    width: 10rem;
+    min-width: 10rem;
+    max-width: 10rem;
+    overflow: hidden;
+  }
+
   input {
-    /*border: 2px solid #e1e1e1;*/
+    border: 1px solid #e1e1e1;
     border-radius: 5px;
     width: 10rem;
   }
