@@ -4,6 +4,7 @@
   import SettingsVersion from "./SettingsVersion.svelte";
   import SettingsPeriod from "./SettingsPeriod.svelte";
   import SettingsYear from "./SettingsYear.svelte";
+  import SettingsDept from "./SettingsDept.svelte";
 </script>
 
 <div class="content-wrapper">
@@ -27,7 +28,7 @@
 
 <div class="card"> 
   <h2 class="card-title">Linking Subjects and Rooms to Departments</h2>
-
+  <SettingsDept/>
 </div>
 
 <div class="card"> 
