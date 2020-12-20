@@ -82,7 +82,57 @@
     </div> <!--/ row-->    
     </div> <!--/container fluid-->
 
+	<div class="content">
+
+	<div class="table-responsive">
 	
+  <table class="table table-bordered">
+  <thead>
+    {#if blockFlag}
+    <tr>
+
+    
+
+		{#each displayList as item}
+      {#if core.row[item].w===weekSelected}
+      
+      {#if colorFlag}
+      <th style="background-color:{core.row[item].b === "-" ? "rgba(0,0,0,0)" : core.blockColor[core.row[item].b]}">{core.row[item].b}</th>
+      {/if}
+
+
+      {#if !colorFlag}
+      <th>{core.row[item].b}</th>
+      {/if}
+      
+      
+      
+      {/if}
+		{/each}
+    </tr>
+    {/if}
+    <tr>
+
+    
+		{#each displayList as item}
+      {#if core.row[item].w===weekSelected}
+      
+      {#if colorFlag}
+      <th style="background-color:{core.row[item].b === "-" ? "rgba(0,0,0,0)" : core.blockColor[core.row[item].b]}">{core.row[item].d+core.row[item].p}</th>
+      {/if}
+      
+      {#if !colorFlag}
+      <th>{core.row[item].d+core.row[item].p}</th>
+      {/if}
+      
+      {/if}
+		{/each}
+    </tr>
+    
+  </thead>
+  </table>
+	</div>
+	</div>
   
 
 
