@@ -1,10 +1,100 @@
+<script>
+  import * as state from "./../scripts/state";
+
+  let versionName = state.getVersion().name;
+  let data = state.getVersion().data;
+  let core = state.getVersion().core;
+
+  let allStaffFlag = false;
+  let blockFlag = false;
+  let colorFlag = false;
+
+  let displayList = core.rowList;
+
+  let weekList = core.weekList;
+  let weekSelected = weekList[0];
+  let deptList = [...new Set(core.deptList.map(el => el.dept))].sort();
+  let deptSelected = deptList[0];
+
+  let toggleBlocks = () => {
+    blockFlag = !blockFlag;
+    displayList = core.rowList;
+    if (blockFlag) displayList = core.blockList;
+
+    console.log(displayList);
+  };
+
+  /* react to change */
+  $: getLessons(deptSelected, weekSelected, allStaffFlag);
+
+  let getLessons = () => {
+    //deptSelected = deptSelected;
+    console.log("***", deptSelected, weekSelected, allStaffFlag);
+  };
+
+  //getLessons();
+</script>
+
+
+
 <div class="content-wrapper">
-	<div class="card p-0 bg-very-dark-dm">
+<div class="content">
+	
 
-		Staff
+<div class="container-fluid  no-print">
+
+    <div class="row justify-content-between"> <!-- justify-content-between = justify-content: space-between -->
+    <div class="col-1 text-center align-self-center">
+    DEPT
+    </div>
+    <div class="col-1 text-center">
+    <select class="form-control" bind:value={deptSelected}>
+    {#each deptList as option,i}
+     <option value={option}>{option}</option>
+    {/each}
+    </select>
+    </div>
+    <div class="col-1 text-center align-self-center">
+    WEEK
+    </div>
+    <div class="col-1 text-center">
+    
+    <select class="form-control" bind:value={weekSelected}>
+    {#each weekList as option,i}
+     <option value={option}>{option}</option>
+    {/each}
+    </select>
+    </div>
+    <div class="col-4 text-center align-self-center">{versionName}</div>
+    
+    <div class="col-4 text-right">
+    {#if !allStaffFlag}<button on:click={()=>allStaffFlag=!allStaffFlag} class="btn" type="button"><i class="fas fa-align-justify"></i></button>{/if}
+			{#if allStaffFlag}<button class="btn btn-primary" on:click={()=>allStaffFlag=!allStaffFlag} type="button"><i class="fas fa-align-justify"></i></button>{/if}
+			
+			{#if !blockFlag}<button on:click={toggleBlocks} class="btn" type="button"><i class="fas fa-shapes"></i></button>{/if}
+			{#if blockFlag}<button class="btn btn-primary" on:click={toggleBlocks} type="button"><i class="fas fa-shapes"></i></button>{/if}
+		
+			{#if !colorFlag}<button on:click={()=>colorFlag=!colorFlag} class="btn" type="button"><i class="fas fa-brush"></i></button>{/if}
+			{#if colorFlag}<button class="btn btn-primary" on:click={()=>colorFlag=!colorFlag} type="button"><i class="fas fa-brush"></i></button>{/if}
+		
+    </div>
+
+    </div> <!--/ row-->    
+    </div> <!--/container fluid-->
+
+	
+  
 
 
-
-
-	</div>
 </div>
+</div>
+
+
+<style>
+  @media print {
+    .no-print,
+    .no-print * {
+      display: none !important;
+    }
+  }
+</style>
