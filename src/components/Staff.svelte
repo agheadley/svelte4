@@ -26,12 +26,25 @@
     console.log(displayList);
   };
 
+  let staffList = [];
+
   /* react to change */
   $: getLessons(deptSelected, weekSelected, allStaffFlag);
 
   let getLessons = () => {
     //deptSelected = deptSelected;
     console.log("***", deptSelected, weekSelected, allStaffFlag);
+    let subjects = core.deptList
+      .filter(el => el.dept === deptSelected && el.subject !== "")
+      .map(el => el.subject);
+    console.log(subjects);
+    for (let row of data) {
+      for (let lesson of row.row) {
+        if (lesson.c !== "") {
+          console.log(lesson.d, lesson.p, lesson.c);
+        }
+      }
+    }
   };
 
   //getLessons();
@@ -91,10 +104,10 @@
   <table class="table table-bordered">
   <thead>
     {#if blockFlag}
-    <tr>
-
     
-
+    <tr>
+    <th></th>
+    <th></th>
 		{#each displayList as item}
       {#if core.row[item].w===weekSelected}
       
@@ -114,7 +127,8 @@
     </tr>
     {/if}
     <tr>
-
+    <th>STAFF</th>
+    <th>(count)</th>
     
 		{#each displayList as item}
       {#if core.row[item].w===weekSelected}
@@ -132,6 +146,13 @@
     </tr>
     
   </thead>
+  <tbody>
+  
+
+
+
+  
+  </tbody>
   </table>
 	</div>
 	</div>
