@@ -5,7 +5,7 @@
   let data = state.getVersion().data;
   let core = state.getVersion().core;
 
-  let allStaffFlag = false;
+  export let allStaffFlag = false;
   let blockFlag = false;
   let colorFlag = false;
 
@@ -14,7 +14,9 @@
   let weekList = core.weekList;
   let weekSelected = weekList[0];
   let deptList = [...new Set(core.deptList.map(el => el.dept))].sort();
-  let deptSelected = deptList[0];
+  export let deptSelected = deptList[0];
+  deptSelected = ""; /* forces App.svelte binding*/
+  deptSelected = deptList[0];
 
   let toggleBlocks = () => {
     blockFlag = !blockFlag;

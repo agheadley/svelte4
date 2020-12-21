@@ -25,6 +25,10 @@
 	let menuTabSelected = 0;
 
 	let aboutFlag = false;
+
+	/* Staff.svelte bindings for csv export */
+	let allStaffFlag = false;
+	let deptSelected = "";
 </script>
 
 
@@ -80,9 +84,23 @@
 
 		</nav>
 
-
+		{#if menuTabSelected===0}
+		<Master/>
+		{/if}
+		{#if menuTabSelected===1}
+		<Staff bind:deptSelected={deptSelected} bind:allStaffFlag={allStaffFlag}/>
+		{/if}
+		{#if menuTabSelected===2}
+		<Room/>
+		{/if}
+		{#if menuTabSelected===3}
+		<Settings/>
+		{/if}
+		
+		
+		<!--
 		<svelte:component this={menuTabOptions[menuTabSelected].component} />
-
+		-->
 
 		{#if aboutFlag}
 		<About bind:closeFlag={aboutFlag}/>
@@ -90,6 +108,7 @@
 
 		<nav class="navbar navbar-fixed-bottom no-print justify-content-between">
 			<div class="navbar-content ml-auto">
+			{deptSelected}{allStaffFlag}
 			</div>
 			<div class="navbar-content ml-auto">
 			AGH
