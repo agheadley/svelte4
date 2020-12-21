@@ -27,8 +27,7 @@
 	let aboutFlag = false;
 
 	/* Staff.svelte bindings for csv export */
-	let allStaffFlag = false;
-	let deptSelected = "";
+	let exportFlag = false;
 </script>
 
 
@@ -65,7 +64,7 @@
 			</div>
 
 			<div class="navbar-content ml-auto">
-				<button class="btn btn-action mr-5 btn-primary" type="button">
+				<button on:click={()=>exportFlag=true} class="btn btn-action mr-5 btn-primary" type="button">
 					<i class="fas fa-download" aria-hidden="true"></i>
 					<span class="sr-only">Export</span>
 				</button>
@@ -88,7 +87,10 @@
 		<Master/>
 		{/if}
 		{#if menuTabSelected===1}
-		<Staff bind:deptSelected={deptSelected} bind:allStaffFlag={allStaffFlag}/>
+		<Staff bind:exportFlag={exportFlag} />
+
+		<!--<Staff bind:deptSelected={deptSelected} bind:allStaffFlag={allStaffFlag}/>-->
+
 		{/if}
 		{#if menuTabSelected===2}
 		<Room/>
@@ -108,7 +110,6 @@
 
 		<nav class="navbar navbar-fixed-bottom no-print justify-content-between">
 			<div class="navbar-content ml-auto">
-			{deptSelected}{allStaffFlag}
 			</div>
 			<div class="navbar-content ml-auto">
 			AGH

@@ -1,11 +1,13 @@
 <script>
   import * as state from "./../scripts/state";
 
+  export let exportFlag;
+
   let versionName = state.getVersion().name;
   let data = state.getVersion().data;
   let core = state.getVersion().core;
 
-  export let allStaffFlag = false;
+  let allStaffFlag = false;
   let blockFlag = false;
   let colorFlag = false;
 
@@ -14,7 +16,7 @@
   let weekList = core.weekList;
   let weekSelected = weekList[0];
   let deptList = [...new Set(core.deptList.map(el => el.dept))].sort();
-  export let deptSelected = deptList[0];
+  let deptSelected = deptList[0];
   deptSelected = ""; /* forces App.svelte binding*/
   deptSelected = deptList[0];
 
@@ -24,6 +26,13 @@
     if (blockFlag) displayList = core.blockList;
 
     console.log(displayList);
+  };
+
+  $: exportTimetable(exportFlag);
+
+  let exportTimetable = () => {
+    console.log("hello");
+    exportFlag = false;
   };
 
   let staffList = [];
