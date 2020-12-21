@@ -35,7 +35,7 @@
     exportFlag = false;
   };
 
-  let staffList = [];
+  //let staffList = [];
 
   /* react to change */
   $: getLessons(deptSelected, weekSelected, allStaffFlag);

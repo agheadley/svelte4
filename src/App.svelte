@@ -88,12 +88,9 @@
 		{/if}
 		{#if menuTabSelected===1}
 		<Staff bind:exportFlag={exportFlag} />
-
-		<!--<Staff bind:deptSelected={deptSelected} bind:allStaffFlag={allStaffFlag}/>-->
-
 		{/if}
 		{#if menuTabSelected===2}
-		<Room/>
+		<Room bind:exportFlag={exportFlag}/>
 		{/if}
 		{#if menuTabSelected===3}
 		<Settings/>
