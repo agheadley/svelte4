@@ -1,13 +1,12 @@
 let csvDownload = (arr2d, filename) => {
-  let eol = "\r\n";
+  let eol = String.fromCharCode(13) + String.fromCharCode(10);
   let content = "";
   arr2d.forEach(function (row, index) {
-    row.row.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/,/g, "\\,");
     content += row.join(",") + eol;
   });
-  content = encodeURI(content);
+  //content = encodeURI(content);
 
-  var blob = new Blob([content], { type: "text/csv" });
+  var blob = new Blob([content], { type: "text/plain" });
   var url = window.URL.createObjectURL(blob);
   var a = document.createElement("a");
   a.href = url;

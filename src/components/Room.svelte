@@ -33,9 +33,11 @@
   $: exportTimetable(exportFlag);
 
   let exportTimetable = () => {
-    let arr2d = csv.createExport(staffRoomData, core.row, "room");
+    let arr2d = csv.createExport(staffRoomData, core.row, "ROOM");
     console.log(arr2d);
-
+    let fileName = deptSelected + "_rooms.csv";
+    if (allRoomFlag) fileName = "all_rooms.csv";
+    if (exportFlag) file.csvDownload(arr2d, fileName);
     exportFlag = false;
   };
 
