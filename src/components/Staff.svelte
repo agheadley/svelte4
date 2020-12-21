@@ -38,12 +38,48 @@
       .filter(el => el.dept === deptSelected && el.subject !== "")
       .map(el => el.subject);
     console.log(subjects);
+
+    let staff = [];
+
     for (let row of data) {
       for (let lesson of row.row) {
         if (lesson.c !== "") {
-          console.log(lesson.d, lesson.p, lesson.c);
+          //console.log(lesson.d, lesson.p, lesson.c);
+          let check = lesson.c.split("/");
+          for (let subject of subjects) {
+            if (check[0] === subject || allStaffFlag === true) {
+              staff.push(lesson.s);
+            }
+          }
         }
       }
+    }
+
+    staff = [...new Set(staff)].sort();
+
+    console.log(staff);
+
+    let staffRoomData = [];
+
+    for (let item of staff) {
+      let line = { name: item, row: [] };
+      for (let col = 0; col < core.rowList.length; col++) {
+        let colObj = { c: "", s: "", r: "" };
+        for (let row of data) {
+          if (row.row[col].s === item) {
+            colObj.c = row.y + "/" + row.row[col].c;
+            colObj.s = row.row[col].s;
+            colObj.r = row.row[col].r;
+          }
+        }
+        line.row.push(colObj);
+      }
+      staffRoomData.push(line);
+      console.log(line);
+
+      let version = state.getVersion();
+      version.staffRoomData = staffRoomData;
+      state.putVersion(state.getActive(), version);
     }
   };
 
