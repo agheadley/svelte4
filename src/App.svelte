@@ -84,7 +84,7 @@
 		</nav>
 
 		{#if menuTabSelected===0}
-		<Master/>
+		<Master bind:exportFlag={exportFlag}/>
 		{/if}
 		{#if menuTabSelected===1}
 		<Staff bind:exportFlag={exportFlag} />
