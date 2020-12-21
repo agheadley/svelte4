@@ -15,21 +15,23 @@
   <SettingsVersion/>
 </div>
 
+
+<div class="card"> 
+  <h2 class="card-title">Linking Subjects and Rooms to Departments</h2>
+  <SettingsDept/>
+</div>
+
+<div class="card"> 
+  <h2 class="card-title">Timetable Basedata</h2>
+</div>
+
 <div class="card"> 
   <h2 class="card-title">Timetable Structure</h2>  
   <SettingsPeriod/>
 </div>
 
 
-<div class="card"> 
-  <h2 class="card-title">Timetable Basedata</h2>
-</div>
 
-
-<div class="card"> 
-  <h2 class="card-title">Linking Subjects and Rooms to Departments</h2>
-  <SettingsDept/>
-</div>
 
 <div class="card"> 
   <h2 class="card-title">Year List</h2>
