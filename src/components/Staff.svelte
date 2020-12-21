@@ -31,6 +31,8 @@
   /* react to change */
   $: getLessons(deptSelected, weekSelected, allStaffFlag);
 
+  let staffRoomData = [];
+
   let getLessons = () => {
     //deptSelected = deptSelected;
     console.log("***", deptSelected, weekSelected, allStaffFlag);
@@ -59,17 +61,20 @@
 
     console.log(staff);
 
-    let staffRoomData = [];
+    staffRoomData = [];
 
     for (let item of staff) {
-      let line = { name: item, row: [] };
+      let line = { name: item, count: 0, row: [] };
       for (let col = 0; col < core.rowList.length; col++) {
         let colObj = { c: "", s: "", r: "" };
+        let alreadyFlag = false;
         for (let row of data) {
-          if (row.row[col].s === item) {
+          if (row.row[col].s === item && alreadyFlag === false) {
             colObj.c = row.y + "/" + row.row[col].c;
             colObj.s = row.row[col].s;
             colObj.r = row.row[col].r;
+            alreadyFlag = true;
+            line.count += 1;
           }
         }
         line.row.push(colObj);
@@ -184,10 +189,40 @@
   </thead>
   <tbody>
   
-
-
+  {#each staffRoomData as rowItem,row}
+  <tr>
+  <td>{rowItem.name}</td>
+  <td>{rowItem.count}</td>
 
   
+  {#each displayList as col}
+  
+  {#if core.row[col].w===weekSelected}
+  {#if !colorFlag}
+  <td>
+  <div  class="font-size-12"><b>{rowItem.row[col].c}</b></div>
+  <div  class="font-size-12"><i>{rowItem.row[col].s}&nbsp;</i></div>
+  <div  class="font-size-12">{rowItem.row[col].r}</div>
+      
+  </td>
+  {/if}
+
+  {#if colorFlag}
+  <td style="background-color:{core.row[col].b === "-" ? "rgba(0,0,0,0)" : core.blockColor[core.row[col].b]}">
+  <div  class="font-size-12"><b>{rowItem.row[col].c}</b></div>
+  <div  class="font-size-12"><i>{rowItem.row[col].s}&nbsp;</i></div>
+  <div  class="font-size-12">{rowItem.row[col].r}</div>
+  </td>
+  {/if}
+
+
+  {/if}
+      
+  {/each}
+
+  </tr>
+  {/each}
+
   </tbody>
   </table>
 	</div>
