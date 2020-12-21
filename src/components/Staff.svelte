@@ -1,5 +1,7 @@
 <script>
   import * as state from "./../scripts/state";
+  import * as csv from "./../scripts/csv";
+  import * as file from "./../scripts/file";
 
   export let exportFlag;
 
@@ -91,9 +93,9 @@
       staffRoomData.push(line);
       console.log(line);
 
-      let version = state.getVersion();
-      version.staffRoomData = staffRoomData;
-      state.putVersion(state.getActive(), version);
+      //let version = state.getVersion();
+      //version.staffRoomData = staffRoomData;
+      //state.putVersion(state.getActive(), version);
     }
   };
 

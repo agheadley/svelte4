@@ -1,4 +1,4 @@
-import * as state from "./state";
+//import * as state from "./state";
 
 let core = {
   yearList: ["7", "6", "5", "4", "3", "2", "1", "0"],

@@ -1,5 +1,7 @@
 <script>
   import * as state from "./../scripts/state";
+  import * as csv from "./../scripts/csv";
+  import * as file from "./../scripts/file";
 
   export let exportFlag;
 
@@ -31,7 +33,9 @@
   $: exportTimetable(exportFlag);
 
   let exportTimetable = () => {
-    console.log("hello");
+    let arr2d = csv.createExport(staffRoomData, core.row, "room");
+    console.log(arr2d);
+
     exportFlag = false;
   };
 
@@ -90,9 +94,9 @@
       staffRoomData.push(line);
       console.log(line);
 
-      let version = state.getVersion();
-      version.staffRoomData = staffRoomData;
-      state.putVersion(state.getActive(), version);
+      //let version = state.getVersion();
+      //version.staffRoomData = staffRoomData;
+      //state.putVersion(state.getActive(), version);
     }
   };
 

@@ -1,3 +1,20 @@
+let csvDownload = (arr2d, filename) => {
+  let eol = "\r\n";
+  let content = "";
+  arr2d.forEach(function (row, index) {
+    row.row.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/,/g, "\\,");
+    content += row.join(",") + eol;
+  });
+  content = encodeURI(content);
+
+  var blob = new Blob([content], { type: "text/csv" });
+  var url = window.URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+};
+
 let download = (text, filename) => {
   var blob = new Blob([text], { type: "text/plain" });
   var url = window.URL.createObjectURL(blob);
@@ -102,4 +119,4 @@ let csvToArray = (text) => {
   return ret;
 };
 
-export { read, csvProcess, download };
+export { read, csvProcess, download, csvDownload };
