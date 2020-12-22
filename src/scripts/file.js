@@ -118,4 +118,4 @@ let csvToArray = (text) => {
   return ret;
 };
 
-export { read, csvProcess, download, csvDownload };
+export { read, csvProcess, download, csvDownload, csvToArray };

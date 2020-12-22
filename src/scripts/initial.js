@@ -10,6 +10,22 @@ let core = {
     { dept: "CHE", subject: "C", room: "A1" },
     { dept: "CHE", subject: "Cs", room: "A2" }
   ],
+  basedata: {
+    staff: [
+      { code: "AAA", name: "A.Abbott" },
+      { code: "BBB", name: "B.Bishop" },
+      { code: "CCC", name: "C.Canon" }
+    ],
+    rooms: [{ code: "A1" }, { code: "A2" }, { code: "A3" }],
+    subjects: [
+      { code: "B", name: "Biology" },
+      { code: "C", name: "Chemistry" },
+      { code: "Cs", name: "Chemistry IBHL" },
+      { code: "Ch", name: "Chemistry IBSL" },
+      { code: "E", name: "English" },
+      { code: "M", name: "Mathematics" }
+    ]
+  },
   row: [
     {
       d: "M",

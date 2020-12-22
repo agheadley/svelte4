@@ -59,4 +59,44 @@ let createBlockTemplate = (row) => {
   return blockList;
 };
 
-export { createTimetableTemplates };
+/* 2d array of basic data (basedata) - extract core basedata and return */
+let extractBasedata = (arr2d) => {
+  let basedata = { valid: true, staff: [], rooms: [], subjects: [] };
+
+  let staff = arr2d.filter((el) => el[0] === "TC");
+  let staffList = [];
+  for (let item of staff) {
+    if (item.length && item.length === 3) {
+      staffList.push({ code: item[1], name: item[2] });
+    }
+  }
+  if (!staffList.length) basedata.valid = false;
+  basedata.staff=staffList;
+  console.log(staffList);
+
+  let subjects = arr2d.filter((el) => el[0] === "SB");
+  let subjectList = [];
+  for (let item of subjects) {
+    if (item.length && item.length === 3) {
+      subjectList.push({ code: item[1], name: item[2] });
+    }
+  }
+  if (!subjectList.length) basedata.valid = false;
+  basedata.subjects=subjectList;
+  console.log(subjectList);
+
+  let rooms = arr2d.filter((el) => el[0] === "RM");
+  let roomList = [];
+  for (let item of rooms) {
+    if (item.length && item.length === 2) {
+      roomList.push({ code: item[1] });
+    }
+  }
+  if (!roomList.length) basedata.valid = false;
+  basedata.rooms=roomList;
+  console.log(roomList);
+
+  return basedata;
+};
+
+export { createTimetableTemplates, extractBasedata };
