@@ -3,7 +3,7 @@
 
   let files;
 
-  let fileType = ".txt";
+  export let fileType;
 
   export let fileData;
 
@@ -17,8 +17,8 @@
 
 
 <div class="custom-file">
-    <input type="file" bind:files id="file-input-1" accept={fileType} on:change={e => readFile() }>
-    <label for="file-input-1">Upload {fileType} file</label>
+    <input type="file" bind:files id="file-input-1" on:change={e => readFile() }>
+    <label for="file-input-1">Upload file</label>
 </div>
 
 

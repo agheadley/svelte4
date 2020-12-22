@@ -6,7 +6,6 @@
   import SettingsYear from "./SettingsYear.svelte";
   import SettingsDept from "./SettingsDept.svelte";
   import SettingsBasedata from "./SettingsBasedata.svelte";
-  
 </script>
 
 <div class="content-wrapper">
@@ -24,14 +23,10 @@
 </div>
 
 <div class="card"> 
-  <h2 class="card-title">Timetable Basedata</h2>
+  <h2 class="card-title">Timetable Basedata / Period Data</h2>
   <SettingsBasedata/>
 </div>
 
-<div class="card"> 
-  <h2 class="card-title">Timetable Structure</h2>  
-  <SettingsPeriod/>
-</div>
 
 
 
